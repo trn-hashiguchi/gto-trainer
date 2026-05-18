@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import HandMatrix from '@/components/HandMatrix';
 import CardPair from '@/components/CardPair';
 import PositionTable from '@/components/PositionTable';
-import { SPOTS, spotById } from '@/domain/spots';
+import { spotById } from '@/domain/spots';
 import { loadRange } from '@/data/rangeLoader';
 import {
   ALL_HANDS,
@@ -10,7 +10,7 @@ import {
   type Action,
   type Range,
 } from '@/domain/poker';
-import { cardId, priorityScore, useProgress } from '@/store/progress';
+import { cardId, priorityScore, useProgress, type CardState } from '@/store/progress';
 
 interface Question {
   spotId: string;
@@ -40,7 +40,7 @@ function weightedPick<T>(items: { item: T; weight: number }[]): T {
 }
 
 function pickQuestion(
-  cards: Record<string, { box: 1 | 2 | 3 | 4 | 5; dueAt: number } | undefined>,
+  cards: Record<string, CardState>,
   prev?: Question,
   spotIdOverride?: string,
 ): Question {
