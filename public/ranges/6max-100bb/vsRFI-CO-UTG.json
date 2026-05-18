@@ -1,0 +1,76 @@
+{
+  "spotId": "vsRFI-CO-UTG",
+  "source": "本プロジェクトの自作データ。CO defend vs UTG open 2.5bb（HJ fold済）。3bet ~4%, call ~9%。",
+  "notes": "UTG レンジは最 tight。CO は背後 BTN/SB/BB ありの squeeze 警戒で、tight に対応。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetIp": "8-9bb"
+  },
+  "longDescription": "UTG open は最も tight(~16%)。CO はその tight range に対し、squeeze リスク(BTN/SB/BB が背後) も考慮して tight にdefend。",
+  "keyPoints": [
+    "value 3bet: QQ+, AKs, AKo",
+    "ブラフ 3bet: A5s（極小頻度）",
+    "call: TT, 99-77 (mix), AQs, AJs, ATs, KQs, KJs, QJs, JTs, T9s, 98s",
+    "AJo/KQo は基本 fold（dominateリスク + squeeze警戒）"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.14,
+    "call": 0.10,
+    "3bet": 0.12
+  },
+  "evOverrides": {
+    "AA":  { "fold": 5.5 },
+    "KK":  { "fold": 4.5 },
+    "QQ":  { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 1.8 },
+    "JJ":  { "fold": 1.5 }
+  },
+  "handNotes": {
+    "AA": "3bet value",
+    "QQ": "3bet（mix）",
+    "JJ": "vs UTG では call が標準",
+    "TT": "call",
+    "AQs": "call",
+    "AQo": "ほぼ fold（UTG レンジに dominated）",
+    "A5s": "唯一のブラフ候補（~30%）"
+  },
+  "strategy": {
+    "3bet": [
+      "AA",
+      "KK",
+      "QQ@0.8",
+      "JJ@0.15",
+      "AKs",
+      "AKo@0.7",
+      "AQs@0.2",
+      "A5s@0.3",
+      "A4s@0.15"
+    ],
+    "call": [
+      "QQ@0.2",
+      "JJ@0.85",
+      "TT",
+      "99",
+      "88",
+      "77",
+      "66@0.6",
+      "55@0.3",
+      "AKo@0.3",
+      "AQs@0.8",
+      "AJs",
+      "ATs",
+      "A9s@0.4",
+      "A5s@0.5",
+      "AQo@0.3",
+      "KQs",
+      "KJs",
+      "KTs@0.7",
+      "QJs",
+      "QTs@0.8",
+      "JTs",
+      "T9s@0.7",
+      "98s@0.5"
+    ]
+  }
+}

@@ -1,7 +1,42 @@
 {
   "spotId": "vs3bet-UTG-BB",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。UTG open 2.5bb → BB 3bet to ~11bb。UTGは最もtightなので4betもtight、強い手のcontinueが中心。",
-  "notes": "UTGレンジは ~15%と狭いため、3betに対しても保守的応答。4betはほぼvalueのみ。",
+  "source": "本プロジェクトの自作データ。UTG open 2.5bb → BB 3bet 12bb (OOP 4.8x)。4bet ~5%, call ~58%。",
+  "notes": "UTG レンジが tight(~16%) なため、3bet に対し fold は少なく call 主体。4bet は value 中心 + 少量のブラフ(A5s)。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetOop": "12bb",
+    "fourBetIp": "27bb (2.2x)"
+  },
+  "longDescription": "UTG open 2.5bb に BB が 12bb 3bet したスポット。UTG のレンジは tight なので fold は少なく、call で広く受ける。4bet は AA/KK 主体 + AKs/QQ(一部) + A5s(ブラフ)。",
+  "keyPoints": [
+    "UTG レンジは tight → 3bet に対し call が wide",
+    "4bet value: AA, KK, QQ(一部), AKs",
+    "4bet ブラフ: A5s（A ブロッカー + wheel）",
+    "call で続けるレンジが多い: JJ-77, AQs, AJs, ATs, KQs, KJs(一部), QJs/JTs/T9s/98s(一部)"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.20,
+    "call": 0.12,
+    "4bet": 0.15
+  },
+  "evOverrides": {
+    "AA": { "fold": 6.0, "call": 1.5 },
+    "KK": { "fold": 5.0, "call": 1.2 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 1.8 },
+    "JJ":  { "fold": 1.5 }
+  },
+  "handNotes": {
+    "AA": "4bet value",
+    "KK": "4bet value",
+    "QQ": "mix（4bet ~30%、call 70%）",
+    "AKs": "4bet value",
+    "AKo": "mix（4bet ~50% / call 50%）",
+    "JJ": "call 推奨",
+    "AQs": "call 推奨。4bet は基本しない",
+    "A5s": "唯一のブラフ 4bet 候補（~30%）。Aブロッカー価値"
+  },
   "strategy": {
     "4bet": [
       "AA",

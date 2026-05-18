@@ -13,7 +13,7 @@ export default function ReferencePage() {
     setRange(undefined);
     setError(undefined);
     loadRange(spotId)
-      .then(setRange)
+      .then((loaded) => setRange(loaded.range))
       .catch((e) => setError(String(e)));
   }, [spotId]);
 

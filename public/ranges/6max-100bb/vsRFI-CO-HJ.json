@@ -1,7 +1,38 @@
 {
   "spotId": "vsRFI-CO-HJ",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。CO defend vs HJ open 2.5bb。BTN/SB/BBが残るためcallはタイト、3bet中心。3bet ~7%, call ~9%。",
-  "notes": "COはBTN/SB/BB全員がまだ残るため、coldcallはタイト目、3bet主体。",
+  "source": "本プロジェクトの自作データ。CO defend vs HJ open 2.5bb。3bet ~7%, call ~10%。",
+  "notes": "BTN/SB/BB が背後に残り、cold call は squeeze リスクがある。3bet主体。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetIp": "8-9bb"
+  },
+  "longDescription": "CO の cold call は背後の squeeze(BTN cold 3bet, SB/BB の 3bet) を呼びやすい。3bet主体で defend し、call は強いハンドに絞る。",
+  "keyPoints": [
+    "BTN/SB/BB の squeeze 警戒で call は tight",
+    "value 3bet: JJ+(一部), AKs, AKo, AQs(mix)",
+    "ブラフ 3bet: A5s, A4s, A3s, KQs(一部), 76s/65s 極小",
+    "call は強い suited + pair に絞る"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.13,
+    "call": 0.08,
+    "3bet": 0.08
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.0 },
+    "KK": { "fold": 4.0 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 }
+  },
+  "handNotes": {
+    "JJ": "mix（3bet ~50%）",
+    "AJs": "mix（call ~70% / 3bet ~30%）",
+    "AQo": "mix（call 50%）",
+    "AJo": "mix（call 50%）",
+    "33": "fold が標準（背後 squeeze 警戒）",
+    "22": "fold が標準（背後 squeeze 警戒）"
+  },
   "strategy": {
     "3bet": [
       "AA",

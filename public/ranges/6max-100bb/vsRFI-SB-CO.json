@@ -1,7 +1,39 @@
 {
   "spotId": "vsRFI-SB-CO",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。SB defend vs CO open 2.5bb。3bet ~11%, call ~3%。",
-  "notes": "COはBTNより少しtight、SBはさらに3bet寄りでcallはごく一部のみ。",
+  "source": "本プロジェクトの自作データ。SB defend vs CO open 2.5bb。3bet ~12%, call ~6%。",
+  "notes": "SB は背後にBBが残り、call すると squeeze を呼びやすい。3bet主体で、call は select の中位pair/Axs/SC のみ。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetOop": "11-12bb"
+  },
+  "longDescription": "SB は OOP + 背後にBB残り(squeeze リスク) のためレンジが偏る。3bet で BB をクローズし、call は強いハンドのみ。3bet/fold 主体の構造。",
+  "keyPoints": [
+    "3bet 主体（~12%）、call は ~6% と薄い",
+    "value 3bet: TT+, AKs, AKo, AQs, AJs",
+    "ブラフ: A5s-A2s, KQs(時々), 76s/65s（小頻度）",
+    "call は 99-44 mix, ATs/A9s mix, KTs, QTs, JTs, T9s, 98s (mix)",
+    "AJo/ATo は基本 fold (3bet/fold モデル)"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.13,
+    "call": 0.10,
+    "3bet": 0.08
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.0 },
+    "KK": { "fold": 4.0 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 }
+  },
+  "handNotes": {
+    "JJ": "3bet value",
+    "TT": "3bet 主体（~80%）",
+    "AJs": "3bet value",
+    "A5s": "主要ブラフ（~55%）",
+    "AJo": "fold が主。call は 0%",
+    "ATs": "mix（3bet ~40% / call ~60%）"
+  },
   "strategy": {
     "3bet": [
       "AA",

@@ -1,7 +1,35 @@
 {
   "spotId": "vsRFI-BTN-HJ",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。BTN defend vs HJ open 2.5bb。COがフォールド済み、SB/BB残り。3bet ~7%, call ~14%。",
-  "notes": "BTNはIPの利を活かしてcallレンジを構築、3betはvalue+ブロッカー混合。",
+  "source": "本プロジェクトの自作データ。BTN defend vs HJ open 2.5bb（CO fold済）。3bet ~7%, call ~15%。",
+  "notes": "HJ レンジ(~20%) は CO より tight。BTN は call主体で、3bet は value 寄り。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetIp": "8-9bb"
+  },
+  "longDescription": "HJ open 2.5bb・CO fold 済の状況で BTN がdefend。HJ のレンジは tight なので 3bet は value 寄り（JJ+, AKs, AKo, AQs）。call は wide。",
+  "keyPoints": [
+    "vs HJ は vs CO より tight な相手なので 3bet を絞る",
+    "value 3bet: JJ+, AKs, AKo, AQs(mix)",
+    "ブラフ 3bet: A5s, A4s, KQs(一部), 76s/65s 極小",
+    "call はwide（pair全部, broadway suited, SC全部）"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.13,
+    "call": 0.06,
+    "3bet": 0.08
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.0 },
+    "KK": { "fold": 4.0 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 }
+  },
+  "handNotes": {
+    "AQo": "vs HJ は 3bet 控えめ、call 多め",
+    "AJo": "call 主",
+    "AJs": "mix（3bet ~40%）"
+  },
   "strategy": {
     "3bet": [
       "AA",

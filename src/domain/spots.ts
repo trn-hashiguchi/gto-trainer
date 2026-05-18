@@ -93,6 +93,15 @@ export const SPOTS: Spot[] = [
 
   // ===== vsRFI: SB defending =====
   {
+    id: 'vsRFI-SB-HJ',
+    format: '6max-100bb',
+    scenario: 'vsRFI',
+    hero: 'SB',
+    villain: 'HJ',
+    actions: ['3bet', 'call', 'fold'],
+    description: 'HJがオープン、CO/BTNフォールド。SBでどう対応？',
+  },
+  {
     id: 'vsRFI-SB-CO',
     format: '6max-100bb',
     scenario: 'vsRFI',
@@ -141,6 +150,15 @@ export const SPOTS: Spot[] = [
   },
 
   // ===== vsRFI: CO defending =====
+  {
+    id: 'vsRFI-CO-UTG',
+    format: '6max-100bb',
+    scenario: 'vsRFI',
+    hero: 'CO',
+    villain: 'UTG',
+    actions: ['3bet', 'call', 'fold'],
+    description: 'UTGがオープン、HJフォールド。COでどう対応？',
+  },
   {
     id: 'vsRFI-CO-HJ',
     format: '6max-100bb',

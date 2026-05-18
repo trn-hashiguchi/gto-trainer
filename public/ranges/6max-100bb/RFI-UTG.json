@@ -1,7 +1,86 @@
 {
   "spotId": "RFI-UTG",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。元記述: 6max 100bb GTOソルバ代表値（手動構築）。約15-17%。",
-  "notes": "ペアと強いスーテッド・コネクタ中心のタイトレンジ。",
+  "source": "本プロジェクトの自作データ。6max NLH 100bb の公開知見（書籍・複数の無料公開チャート・YouTube解説の合意点）を基に手動構築した近似値。商用ソルバ製品からの転載ではない。代表値: open ~16%。",
+  "notes": "UTGは6max最初の席。背後に5人残るため強いハンドのみ open する。weak Ax/Kxo offsuit は基本入れない（offsuit ドミネートリスク）。",
+  "betSizes": {
+    "open": "2.5bb"
+  },
+  "longDescription": "UTGは全員に対してプレイすることになる席。背後に5人いるためレンジは最もタイト（約16%）。プレミア+強ブロードウェイ+少数のSC/SOCで構成され、オフスート broadway はAK/AQ/AJのみ（mix）。",
+  "keyPoints": [
+    "ペアは22まで含むがロー（22-44）は mix",
+    "Axs は全て含む（A5s/A4s は wheel potential で価値が高い）",
+    "Kxs は K9s/K8s まで mix で含む。Kxo は KQo の mix のみ",
+    "オフスートは AKo/AQo/AJo(mix)/KQo(mix) のみ。ATo・KJo は基本入らない",
+    "SC は 98s, 87s, 76s, 65s, 54s(極小mix) まで"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.20,
+    "open": 0.25
+  },
+  "exploit": {
+    "vsFish": {
+      "summary": "テーブルがルース。SC/SOC のEV境界ハンドを絞り、強いハンドの value 取りを意識",
+      "guidelines": [
+        "76s/65s/54s, T8s/J9s(mix) の境界ブラフ open を絞る",
+        "AJo, KQo(mix) の境界オフスートも fold 寄り",
+        "AA-99, AKs/AQs/AKo は ISO value を最大化（squeeze から逃げない）"
+      ]
+    },
+    "vsNit": {
+      "summary": "後位が tight。レンジを 3-5% 広げる",
+      "guidelines": [
+        "AJo, KQo は 100% open に",
+        "A2s, A3s, K8s, Q8s, J8s, T8s も 100% に近づける",
+        "ただし UTG であることは変わらないので、極端には広げない"
+      ]
+    }
+  },
+  "evOverrides": {
+    "AA":  { "fold": 5.0 },
+    "KK":  { "fold": 4.0 },
+    "QQ":  { "fold": 3.0 },
+    "JJ":  { "fold": 2.0 },
+    "TT":  { "fold": 1.2 },
+    "AKs": { "fold": 2.0 },
+    "AKo": { "fold": 1.5 },
+    "AQs": { "fold": 1.2 },
+    "AQo": { "fold": 0.8 },
+    "99":  { "fold": 0.8 },
+    "88":  { "fold": 0.6 },
+    "77":  { "fold": 0.4 },
+    "AJs": { "fold": 0.6 },
+    "KQs": { "fold": 0.5 },
+    "32o": { "open": 0.45 },
+    "82o": { "open": 0.45 },
+    "72o": { "open": 0.45 },
+    "62o": { "open": 0.40 },
+    "52o": { "open": 0.40 },
+    "42o": { "open": 0.40 },
+    "Q2o": { "open": 0.35 },
+    "J2o": { "open": 0.35 }
+  },
+  "handNotes": {
+    "AA": "プレミアム最強。UTGからでも必ず open（mixは存在しない）",
+    "KK": "プレミアム。fold は完全な誤り",
+    "QQ": "UTG open レンジ最上位。3bet を受けてもほぼ常に call/4bet",
+    "TT": "JJ以上と扱いが明確に分かれる境界。OOPで3betに弱いが open は標準",
+    "AKs": "プレミアム。3bet vs 4bet pot でも強い",
+    "AKo": "AKsよりやや劣るがUTG open 100%。3bet to の主力",
+    "AQo": "UTG open 100%。AJoより明確に強い",
+    "AJo": "UTG では mix（~70%）。3betに弱い境界ハンド",
+    "ATo": "UTG では基本open しない。ドミネート負けが多い",
+    "KQo": "UTG では mix（~55%）。後位なら100%だがUTGは少し控える",
+    "A5s": "wheel potential + ブロッカー価値。A8s より優先される印象",
+    "A4s": "A5sと同様、wheel suited は UTG でも採用",
+    "A9s": "中位 Axs。mix（~60%）",
+    "A2s": "極小頻度。実戦的にはほぼ fold で問題ない境界",
+    "K9s": "UTG では mix（~40%）。後位なら100% open",
+    "K8s": "UTG では小頻度（~10%）。基本 fold で良い",
+    "T8s": "中位 SOC。mix（~40%）",
+    "65s": "SC最下位レベル。mix（~30%）。EV的にはほぼマージン",
+    "54s": "UTG では極小頻度（~10%）。基本 fold",
+    "76s": "中位SC。mix（~55%）。覚えどころ"
+  },
   "strategy": {
     "open": [
       "AA",
@@ -12,37 +91,45 @@
       "99",
       "88",
       "77",
-      "66@0.7",
+      "66@0.8",
       "55@0.5",
       "44@0.4",
-      "33@0.4",
-      "22@0.4",
+      "33@0.3",
+      "22@0.3",
       "AKs",
       "AQs",
       "AJs",
       "ATs",
-      "A9s@0.5",
-      "A5s@0.6",
-      "A4s@0.4",
+      "A9s@0.6",
+      "A8s@0.7",
+      "A7s@0.5",
+      "A6s@0.3",
+      "A5s@0.7",
+      "A4s@0.5",
+      "A3s@0.3",
+      "A2s@0.1",
       "KQs",
       "KJs",
       "KTs",
-      "K9s@0.3",
+      "K9s@0.4",
+      "K8s@0.1",
       "QJs",
-      "QTs",
+      "QTs@0.9",
       "Q9s@0.3",
       "JTs",
       "J9s@0.5",
       "T9s",
       "T8s@0.4",
       "98s",
-      "87s@0.7",
-      "76s@0.5",
-      "65s@0.4",
+      "97s@0.2",
+      "87s@0.8",
+      "76s@0.55",
+      "65s@0.3",
+      "54s@0.1",
       "AKo",
       "AQo",
       "AJo@0.7",
-      "KQo@0.6"
+      "KQo@0.55"
     ]
   }
 }

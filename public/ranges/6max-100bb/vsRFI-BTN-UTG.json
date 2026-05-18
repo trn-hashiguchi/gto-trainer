@@ -1,7 +1,36 @@
 {
   "spotId": "vsRFI-BTN-UTG",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。BTN defend vs UTG open 2.5bb。3bet ~5%, call ~12%。",
-  "notes": "UTGはタイトなのでBTNもtighter、3betはvalue寄り。",
+  "source": "本プロジェクトの自作データ。BTN defend vs UTG open 2.5bb（HJ/CO fold済）。3bet ~5%, call ~13%。",
+  "notes": "UTG のレンジは最 tight(~16%)。BTN は 3bet を絞り、call で対応。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetIp": "8-9bb"
+  },
+  "longDescription": "UTG のレンジが tight なので BTN の3bet は value寄り(JJ+/AKs/AKo)、ブラフは A5s/A4s/KQs(極小) のみ。call で取れるハンドは call。",
+  "keyPoints": [
+    "vs UTG は相手が tight。3bet は ~5% と絞る",
+    "value 3bet: QQ+, AKs, AKo, JJ(mix), AQs(mix)",
+    "ブラフ 3bet: A5s, A4s, KQs(一部)",
+    "call は pair全部, AJs-A9s, KQs-K9s, QJs-Q9s, JTs-J9s, T9s-T8s, 98s, 87s, 76s, 65s(mix)"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.14,
+    "call": 0.06,
+    "3bet": 0.10
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.0 },
+    "KK": { "fold": 4.0 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 }
+  },
+  "handNotes": {
+    "JJ": "vs UTG は mix（call 60% / 3bet 40%）",
+    "AJs": "ほぼ call",
+    "AQo": "mix（call ~50%）",
+    "AJo": "mix（call ~60%）。dominateリスクで控えめ"
+  },
   "strategy": {
     "3bet": [
       "AA",

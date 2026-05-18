@@ -1,7 +1,37 @@
 {
   "spotId": "vsRFI-SB-BTN",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。SB defend vs BTN open 2.5bb。SBはOOP+BBがまだいるため3betメイン、coldcallは少なめ。3bet ~13%, call ~5%。",
-  "notes": "SBはBBのスクイーズ脅威があるため、callはやや絞り、強い手で3bet。",
+  "source": "本プロジェクトの自作データ。SB defend vs BTN open 2.5bb。3bet ~14%, call ~7%。",
+  "notes": "BTN は最 wide(~49%) open。SB は背後 BB あり、squeeze 警戒で 3bet主体。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetOop": "11-12bb"
+  },
+  "longDescription": "BTN open は wide のため、SB は 3bet をやや厚く取る。call は強い suited（KJs-KTs, QJs-QTs, JTs, T9s, 98s, 87s）と一部 mid pair/Axs に絞る。BBのsqueezeを警戒する必要がある。",
+  "keyPoints": [
+    "vs BTN は wide なため 3bet ~14%（vs CO より広い）",
+    "value 3bet: TT+, AKs, AKo, AQs, AJs",
+    "ブラフ: A5s-A2s, KJs(mix), 76s/65s/54s",
+    "call はsuited connector とミドルpair のみ"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.12,
+    "call": 0.08,
+    "3bet": 0.07
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.0 },
+    "KK": { "fold": 4.0 },
+    "QQ": { "fold": 3.0 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 }
+  },
+  "handNotes": {
+    "AJo": "vs BTN は 3bet mix（~40%）。値が広いBTNから取れる",
+    "ATs": "mix（3bet ~60% / call ~40%）",
+    "76s": "ブラフ 3bet 候補（~20-25%）",
+    "65s": "ブラフ 3bet 候補（~20-25%）",
+    "54s": "ブラフ 3bet 候補（~20-25%）"
+  },
   "strategy": {
     "3bet": [
       "AA",

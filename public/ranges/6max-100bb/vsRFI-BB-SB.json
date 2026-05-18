@@ -1,7 +1,44 @@
 {
   "spotId": "vsRFI-BB-SB",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。BB defend vs SB open 3bb (フラッターサイズ前提)。SBはレンジが広いためBBは最大級にwide defend。3bet ~18%, call ~55%。",
-  "notes": "SB vs BB はヘッズアップに近く、BBは超wide。SBのレンジが広いことを利用して3betもmix頻度で多用。",
+  "source": "本プロジェクトの自作データ。BB defend vs SB open 3bb (フラッターサイズ前提)。3bet ~18%, call ~55%。",
+  "notes": "BvB(ブラインド対決)はヘッズアップに近い。BBはSBの広いレンジに対し超wide defend。",
+  "betSizes": {
+    "open": "3bb (SB の標準サイズ)",
+    "threeBetOop": "12-14bb"
+  },
+  "longDescription": "SB が wide(~42%) で open してくる。BB は IP に近い形（厳密にはポストはOOPだが、ヘッズアップなのでpositionの不利は小さい）。3bet は ~18% と全戦最大級。低 Kxs/Qxs/Jxs もブラフレンジ、call はほぼ pot odds で取れるハンド全て。",
+  "keyPoints": [
+    "BvBはヘッズアップに近く、最も wide にdefend",
+    "value 3bet: JJ+, AKs, AKo, AQs, AQo, AJs(全部)",
+    "ブラフ 3bet: A5s-A2s, K5s-K2s, Q5s-Q3s 全域。SC mix",
+    "オフスートも A2o, K7o, Q8o, J8o, T8o, 98o まで call",
+    "極小pair の 22-33 も常に call"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.10,
+    "call": 0.06,
+    "3bet": 0.06
+  },
+  "evOverrides": {
+    "AA": { "fold": 5.5 },
+    "KK": { "fold": 4.5 },
+    "QQ": { "fold": 3.3 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 2.0 },
+    "JJ":  { "fold": 1.9 },
+    "TT":  { "fold": 1.2 }
+  },
+  "handNotes": {
+    "AA": "value 3bet",
+    "KK": "value 3bet",
+    "JJ": "3bet。BvB は value range が広い",
+    "TT": "3bet がデフォルト",
+    "AJo": "mix（3bet ~50%）",
+    "K5s": "ブラフ 3bet（~40%）または call",
+    "76s": "3bet bluff の主要候補",
+    "65s": "3bet bluff の主要候補",
+    "54s": "3bet bluff の主要候補"
+  },
   "strategy": {
     "3bet": [
       "AA",

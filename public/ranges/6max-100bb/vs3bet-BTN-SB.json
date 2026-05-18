@@ -1,7 +1,39 @@
 {
   "spotId": "vs3bet-BTN-SB",
-  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。BTN open 2.5bb → SB 3bet to ~12bb。SBはOOPでBB残り、3betレンジは ~13%。BTNは4bet気持ち多め+callで対応。",
-  "notes": "SBは3bet主体（call ~5%）、4bet幅は ~11%。BTNはIPかつBBが closing role なので比較的wideに対応可能。",
+  "source": "本プロジェクトの自作データ。BTN open 2.5bb → SB 3bet 11bb (OOP)。BTN は IP で対応。4bet ~11%, call ~30%。",
+  "notes": "BTN は IP のため call が有効。SB の 3betは ~13% でレンジが偏る（value寄り）が、SC ブラフも一定数含む。",
+  "betSizes": {
+    "open": "2.5bb",
+    "threeBetOop": "11bb",
+    "fourBetIp": "25bb (2.3x)"
+  },
+  "longDescription": "BTN open に SB が 3bet。BTN は IP かつ BB が背後で closing role を担うため call で wide に対応可能。4bet は value + 多めのブラフ（A5s-A3s）。",
+  "keyPoints": [
+    "value 4bet: AA, KK, QQ, JJ(mix), AKs, AKo(一部)",
+    "ブラフ 4bet: A5s, A4s, A3s（wheel Aブロッカー）",
+    "call は wide。JJ-66 mix, AQs/AQo, AJs/AJo, AT~A9 mix, KQ/KJ/KT, broadway, T9s/98s/87s/76s mix"
+  ],
+  "defaultMistakeLoss": {
+    "fold": 0.18,
+    "call": 0.08,
+    "4bet": 0.10
+  },
+  "evOverrides": {
+    "AA": { "fold": 6.0 },
+    "KK": { "fold": 5.0 },
+    "QQ": { "fold": 3.5 },
+    "AKs": { "fold": 2.5 },
+    "AKo": { "fold": 1.8 },
+    "JJ":  { "fold": 1.8 }
+  },
+  "handNotes": {
+    "JJ": "mix（4bet ~50% / call ~50%）",
+    "AKs": "4bet value",
+    "AKo": "mix（4bet 70% / call 30%）",
+    "AQs": "mix（4bet 40% / call 60%）",
+    "A5s": "主要ブラフ（4bet ~60%）",
+    "AJo": "call が標準"
+  },
   "strategy": {
     "4bet": [
       "AA",
