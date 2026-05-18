@@ -1,0 +1,33 @@
+{
+  "spotId": "vs3bet-UTG-BB",
+  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。UTG open 2.5bb → BB 3bet to ~11bb。UTGは最もtightなので4betもtight、強い手のcontinueが中心。",
+  "notes": "UTGレンジは ~15%と狭いため、3betに対しても保守的応答。4betはほぼvalueのみ。",
+  "strategy": {
+    "4bet": [
+      "AA",
+      "KK",
+      "QQ@0.3",
+      "AKs",
+      "AKo@0.5",
+      "A5s@0.3"
+    ],
+    "call": [
+      "QQ@0.7",
+      "JJ",
+      "TT",
+      "99",
+      "88@0.7",
+      "AKo@0.5",
+      "AQs",
+      "AQo@0.4",
+      "AJs",
+      "ATs@0.7",
+      "KQs",
+      "KJs@0.6",
+      "QJs@0.5",
+      "JTs@0.5",
+      "T9s@0.3",
+      "98s@0.3"
+    ]
+  }
+}

@@ -20,13 +20,13 @@ export default function ReferencePage() {
   const spot = SPOTS.find((s) => s.id === spotId)!;
 
   return (
-    <div className="max-w-3xl mx-auto space-y-4">
+    <div className="max-w-3xl mx-auto space-y-3">
       <div className="flex items-center gap-2 flex-wrap">
-        <label className="text-sm text-slate-300">スポット:</label>
+        <label className="text-sm text-slate-300 shrink-0">スポット</label>
         <select
           value={spotId}
           onChange={(e) => setSpotId(e.target.value)}
-          className="bg-slate-800 border border-slate-600 rounded px-2 py-1 text-sm"
+          className="bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm flex-1 min-w-0"
         >
           {SPOTS.map((s) => (
             <option key={s.id} value={s.id}>
@@ -35,9 +35,13 @@ export default function ReferencePage() {
           ))}
         </select>
       </div>
-      <p className="text-sm text-slate-300">{spot.description}</p>
-      {error && <p className="text-rose-400 text-sm">{error}（このスポットのレンジJSONは未提供かもしれません）</p>}
-      {range && <HandMatrix range={range} />}
+      <p className="text-xs sm:text-sm text-slate-300">{spot.description}</p>
+      {error && (
+        <p className="text-rose-400 text-xs sm:text-sm">
+          {error}（このスポットのレンジJSONは未提供かもしれません）
+        </p>
+      )}
+      {range && <HandMatrix range={range} large />}
       <Legend />
     </div>
   );
@@ -52,7 +56,7 @@ function Legend() {
     ['fold', '#334155'],
   ];
   return (
-    <div className="flex gap-3 text-xs text-slate-300 flex-wrap">
+    <div className="flex gap-2 sm:gap-3 text-xs text-slate-300 flex-wrap">
       {items.map(([label, color]) => (
         <span key={label} className="flex items-center gap-1">
           <span className="inline-block w-3 h-3 rounded-sm" style={{ background: color }} />

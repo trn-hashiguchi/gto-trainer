@@ -1,0 +1,53 @@
+{
+  "spotId": "vsRFI-CO-HJ",
+  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。CO defend vs HJ open 2.5bb。BTN/SB/BBが残るためcallはタイト、3bet中心。3bet ~7%, call ~9%。",
+  "notes": "COはBTN/SB/BB全員がまだ残るため、coldcallはタイト目、3bet主体。",
+  "strategy": {
+    "3bet": [
+      "AA",
+      "KK",
+      "QQ",
+      "JJ@0.5",
+      "AKs",
+      "AKo",
+      "AQs@0.6",
+      "AJs@0.3",
+      "A5s@0.5",
+      "A4s@0.4",
+      "A3s@0.3",
+      "KQs@0.3",
+      "76s@0.15",
+      "65s@0.15"
+    ],
+    "call": [
+      "JJ@0.5",
+      "TT",
+      "99",
+      "88",
+      "77",
+      "66",
+      "55",
+      "44",
+      "AQs@0.4",
+      "AJs@0.7",
+      "ATs",
+      "A9s",
+      "A8s",
+      "A5s@0.5",
+      "AQo@0.5",
+      "AJo@0.5",
+      "KQs@0.7",
+      "KJs",
+      "KTs",
+      "K9s",
+      "QJs",
+      "QTs",
+      "JTs",
+      "J9s",
+      "T9s",
+      "98s",
+      "87s",
+      "76s@0.85"
+    ]
+  }
+}

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "validate-ranges": "node scripts/validate-ranges.mjs",
+    "build": "npm run validate-ranges && tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "lint": "eslint .",
     "test": "vitest"

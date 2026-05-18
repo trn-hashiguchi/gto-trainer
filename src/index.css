@@ -3,4 +3,22 @@
 @tailwind utilities;
 
 html, body, #root { height: 100%; }
-body { @apply bg-slate-900 text-slate-100; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  @apply bg-slate-900 text-slate-100;
+  /* safe-area: iOS のノッチ/ホームインジケータ対策 */
+  padding-top: env(safe-area-inset-top);
+  /* 下部はボトムナビ側で吸収するのでbodyには付与しない */
+}
+
+/* タップ時の青ハイライト抑止 */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* iOS Safari でフォーム要素の zoom 防止のため最低16px */
+select, input, textarea, button { font-size: 16px; }
+
+/* ボトムナビぶんの底部余白ユーティリティ */
+.pb-safe-nav { padding-bottom: calc(env(safe-area-inset-bottom) + 64px); }
+@media (min-width: 640px) {
+  .pb-safe-nav { padding-bottom: env(safe-area-inset-bottom); }
+}

@@ -1,0 +1,45 @@
+{
+  "spotId": "vs3bet-BTN-BB",
+  "source": "本プロジェクトの自作データ。一般に流通している6max NLH 100bbのGTO戦略知識をもとに手動で構築した近似値。特定の商用ソルバ製品からの転載ではない。BTN open 2.5bb → BB 3bet to ~12bb。BTNはIP、レンジは広めに4betとcallを構築。4bet ~6%, call ~12% (open frequency基準)。",
+  "notes": "BTN open frequency ~48%のうち、BBの3bet (~14%) に対する応答。4betはvalue+A5s系ブロッカーbluff、callは中強度。",
+  "strategy": {
+    "4bet": [
+      "AA",
+      "KK",
+      "QQ",
+      "AKs",
+      "AKo@0.7",
+      "A5s@0.5",
+      "A4s@0.4",
+      "A3s@0.3"
+    ],
+    "call": [
+      "JJ",
+      "TT",
+      "99",
+      "88",
+      "77@0.7",
+      "66@0.5",
+      "AKo@0.3",
+      "AQs",
+      "AQo@0.6",
+      "AJs",
+      "AJo@0.5",
+      "ATs",
+      "A9s@0.5",
+      "KQs",
+      "KQo@0.5",
+      "KJs",
+      "KTs",
+      "QJs",
+      "QTs",
+      "JTs",
+      "T9s",
+      "98s",
+      "87s@0.7",
+      "76s@0.7",
+      "65s@0.6",
+      "54s@0.5"
+    ]
+  }
+}

@@ -46,7 +46,12 @@ export interface Spot {
   format: '6max-100bb';
   scenario: 'RFI' | 'vsRFI' | 'vs3bet';
   hero: Position;
-  villain?: Position;    // vsRFI 時のオープナー
+  villain?: Position;    // vsRFI 時のオープナー / vs3bet 時の3bettor
+  // PositionTable の villain バッジ表示文字（"RAISE" / "3BET" 等）。
+  // 未指定なら scenario から推定（vs3bet → "3BET", それ以外 → "RAISE"）
+  villainLabel?: string;
+  // hero が既に取ったアクション。vs3bet で hero が open 済みであることを示すため。
+  heroPrevAction?: 'open';
   actions: Action[];     // ユーザーが選べる選択肢
   description: string;
 }
