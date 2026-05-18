@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/CardPair.tsx","./src/components/HandMatrix.tsx","./src/components/PositionTable.tsx","./src/data/rangeLoader.ts","./src/domain/poker.ts","./src/domain/spots.ts","./src/pages/DrillPage.tsx","./src/pages/ReferencePage.tsx","./src/pages/StatsPage.tsx","./src/store/progress.ts"],"version":"5.9.3"}
