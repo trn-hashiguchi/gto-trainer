@@ -8,7 +8,7 @@ import {
 } from './poker';
 
 describe('gradeChoice', () => {
-  it('returns optimal when chosen freq >= 30%', () => {
+  it('returns optimal for a pure strategy', () => {
     const strat: HandStrategy = { open: 1.0 };
     const r = gradeChoice(strat, 'open', 'AKs');
     expect(r.grade).toBe('optimal');
@@ -20,25 +20,52 @@ describe('gradeChoice', () => {
     expect(gradeChoice(strat, 'open', 'A5s').grade).toBe('optimal');
   });
 
-  it('returns acceptable when chosen freq in [5%, 30%) and not top', () => {
-    const strat: HandStrategy = { open: 0.8, fold: 0.2 };
-    expect(gradeChoice(strat, 'fold', 'A4s').grade).toBe('acceptable');
+  it('returns optimal for all branches of a balanced four-way mix', () => {
+    // 25/25/25/25: ratio = 1.0 ≥ 0.75 and freq ≥ 0.10 → optimal for every action
+    const strat: HandStrategy = { open: 0.25, call: 0.25, '3bet': 0.25, fold: 0.25 };
+    expect(gradeChoice(strat, 'open', 'AJs').grade).toBe('optimal');
+    expect(gradeChoice(strat, '3bet', 'AJs').grade).toBe('optimal');
   });
 
-  it('returns minor when freq is 0 and evLoss < 0.05bb', () => {
+  it('returns optimal for a low-peak action that still dominates its mix', () => {
+    // Peak は 40% でも topFreq の 1.0倍なので主戦略扱い
+    const strat: HandStrategy = { open: 0.4, call: 0.35, fold: 0.25 };
+    expect(gradeChoice(strat, 'open', 'KTs').grade).toBe('optimal');
+  });
+
+  it('drops below optimal when freq < OPTIMAL_TOP_RATIO * topFreq', () => {
+    // call=0.20 / open=0.80 → ratio 0.25 < 0.75 → acceptable
+    const strat: HandStrategy = { open: 0.8, call: 0.2 };
+    expect(gradeChoice(strat, 'call', 'A4s').grade).toBe('acceptable');
+  });
+
+  it('keeps freq < OPTIMAL_MIN_FREQ out of optimal even when ratio passes', () => {
+    // chosen 0.08 / top 0.08 (ratio=1.0) だが MIN_FREQ=0.10 を下回るので optimal にしない
+    const strat: HandStrategy = { open: 0.08, fold: 0.92 };
+    expect(gradeChoice(strat, 'open', '85s').grade).toBe('acceptable');
+  });
+
+  it('returns minor when freq is 0 and evLoss < 0.10bb', () => {
     const strat: HandStrategy = { open: 1.0 };
-    const hints: EvHints = { defaultMistakeLoss: { fold: 0.03 } };
+    const hints: EvHints = { defaultMistakeLoss: { fold: 0.07 } };
     const r = gradeChoice(strat, 'fold', '76s', hints);
     expect(r.grade).toBe('minor');
-    expect(r.evLoss).toBe(0.03);
+    expect(r.evLoss).toBe(0.07);
   });
 
-  it('returns major when freq is 0 and evLoss >= 0.05bb', () => {
+  it('returns major when freq is 0 and evLoss >= 0.10bb', () => {
     const strat: HandStrategy = { open: 1.0 };
     const hints: EvHints = { defaultMistakeLoss: { fold: 0.20 } };
     const r = gradeChoice(strat, 'fold', '76s', hints);
     expect(r.grade).toBe('major');
     expect(r.evLoss).toBe(0.20);
+  });
+
+  it('returns minor for tail mix (0 < freq < 5%) where evLoss is 0', () => {
+    const strat: HandStrategy = { open: 0.04, fold: 0.96 };
+    const r = gradeChoice(strat, 'open', '74s');
+    expect(r.grade).toBe('minor');
+    expect(r.evLoss).toBe(0);
   });
 
   it('uses evOverrides for the specific hand-action over defaults', () => {

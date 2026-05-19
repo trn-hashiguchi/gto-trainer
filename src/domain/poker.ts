@@ -82,21 +82,26 @@ export interface EvHints {
   evOverrides?: Record<string, Partial<Record<Action, number>>>;
 }
 
-const FREQ_THRESHOLD_OPTIMAL = 0.30;   // これ以上で主戦略
+// optimal は「topFreq の 75% 以上 かつ 10% 以上」を採用。
+// 絶対値固定 (旧: 0.30) では四分岐ミックス (25/25/25/25) や ピーク低めのスポット
+// で誤判定するため、topFreq 相対比に統一。OPTIMAL_MIN_FREQ は「ノイズ頻度を
+// 主戦略と誤認しない」ためのフロア。
+const OPTIMAL_TOP_RATIO = 0.75;
+const OPTIMAL_MIN_FREQ = 0.10;
 const FREQ_THRESHOLD_ACCEPTABLE = 0.05; // これ以上で許容
-const EV_THRESHOLD_MINOR = 0.05;        // bb。これ未満なら minor
+// 各レンジJSONの defaultMistakeLoss は 0.10〜0.15bb 程度に置かれる運用なので、
+// minor 上限は 0.10bb に。EV損推定が無いハンドは fallback 0.15bb で major 化する。
+const EV_THRESHOLD_MINOR = 0.10;
 
 // 採点関数。
 // 設計原則: GTO ナッシュ均衡では「混合戦略に含まれるアクションは EV 同等」。
 // よって freq > 0 のアクションは原則 evLoss = 0。freq = 0 のアクションのみ EV 損が発生する。
 //
-// grade は freq を主、evLoss を従とする:
-//   freq ≥ 30%:                        optimal
-//   freq ≥ 5%:                         acceptable
-//   freq = 0% かつ evLoss < 0.05bb:     minor   (境界の小ミス)
-//   freq = 0% かつ evLoss ≥ 0.05bb:    major   (明確なミス)
-//   0 < freq < 5%:                     末端ミックス。evLoss は 0 だが optimal でも acceptable でもない
-//                                       → 「許容寄りの minor」として minor 扱い
+// grade:
+//   freq ≥ 10% かつ freq ≥ topFreq * 0.75: optimal  (主戦略)
+//   freq ≥ 5%:                              acceptable (許容ミックス末端)
+//   evLoss < 0.10bb:                        minor   (境界の小ミス、または末端 mix で evLoss=0)
+//   それ以外:                                major   (明確な EV 損)
 export function gradeChoice(
   strategy: HandStrategy,
   chosen: Action,
@@ -108,7 +113,7 @@ export function gradeChoice(
   const evLoss = estimateEvLoss(strategy, chosen, hand, hints);
 
   let grade: Grade;
-  if (chosenFreq >= FREQ_THRESHOLD_OPTIMAL || (chosenFreq > 0 && chosenFreq >= topFreq * 0.95)) {
+  if (chosenFreq >= OPTIMAL_MIN_FREQ && chosenFreq >= topFreq * OPTIMAL_TOP_RATIO) {
     grade = 'optimal';
   } else if (chosenFreq >= FREQ_THRESHOLD_ACCEPTABLE) {
     grade = 'acceptable';

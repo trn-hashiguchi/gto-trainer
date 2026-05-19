@@ -70,11 +70,14 @@ function pickQuestion(
       const cs = cards[id];
 
       if (filterMode === 'new' && cs && cs.attempts > 0) continue;
-      // 苦手 = EF < 2.0 または 正答率 < 60%（5回以上試行）
+      // 苦手 = EF < 2.0  または  (試行 ≥ 5 かつ 正答率 < 60%)
+      // 試行 1 回でも major を引けば EF が 2.0 を下回るため、attempts 下限は設けない。
       if (filterMode === 'weak') {
-        if (!cs || cs.attempts < 2) continue;
+        if (!cs) continue;
         const acc = cs.attempts > 0 ? cs.correct / cs.attempts : 1;
-        if (cs.ef >= 2.0 && acc >= 0.6) continue;
+        const isLowEf = cs.ef < 2.0;
+        const isLowAcc = cs.attempts >= 5 && acc < 0.6;
+        if (!isLowEf && !isLowAcc) continue;
       }
       if (filterMode === 'recent-miss' && !recentMissIds.has(id)) continue;
 
@@ -539,10 +542,15 @@ function ExploitTip({
 }
 
 function GradeExplain({ grade, evLoss }: { grade: Grade; evLoss: number }) {
+  // minor は (a) 末端ミックスで evLoss=0、(b) 頻度0だが EV損が境界 (<0.10bb) の2系統。
+  const minorText =
+    evLoss === 0
+      ? '末端ミックスの選択。EV損はほぼゼロだが、主戦略・許容範囲ではない。'
+      : `境界ハンドの小ミス。EV損 ${(evLoss * 1000).toFixed(0)} mbb。`;
   const text: Record<Grade, string> = {
     optimal: '主戦略と一致。GTO上ベストの選択。',
     acceptable: 'ミックス戦略の許容範囲。EVほぼ同等で、GTO的に正解。',
-    minor: `頻度0%だがEV損は ${(evLoss * 1000).toFixed(0)} mbb。境界ハンドの誤差レベル。`,
+    minor: minorText,
     major: `主戦略から外れEV損 ${(evLoss * 1000).toFixed(0)} mbb。明確に避けたい選択。`,
   };
   return <div className="text-[11px] sm:text-xs text-slate-300">{text[grade]}</div>;
